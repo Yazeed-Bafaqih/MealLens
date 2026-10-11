@@ -1,20 +1,25 @@
 # MealLens
 
-MealLens is an Android application written in Java. The current project includes Firebase Authentication for account registration and sign-in.
+MealLens is a mobile application designed to help users keep track of their meals and make healthier food choices.
 
-## Requirements
+## Project Progress
 
-- Android Studio
-- JDK 11 or newer
-- An Android SDK compatible with the versions configured in `app/build.gradle.kts`
-- A Firebase project with Android package name `com.example.meallens`
+### Project Initiation (Sprint 0) - Completed
 
-## Setup
+- Defined the project idea and its main features.
+- Prepared the initial designs for the sign-in, sign-up, and home screens.
+- Set up the project structure, Gradle configuration, and Firebase connection.
 
-1. Clone or download this repository.
-2. In the Firebase console, register an Android app using package name `com.example.meallens`.
-3. Download `google-services.json` and place it in the `app/` directory.
-4. Enable Email/Password authentication in Firebase Authentication.
-5. Open the project in Android Studio, let Gradle sync, then run the `app` configuration.
+### Sprint 1 - Completed
 
-`google-services.json`, local Android SDK paths, IDE settings, build outputs, and signing files are intentionally excluded from version control.
+- Added user registration with name, email, and password.
+- Added login and authentication using Firebase.
+- Added input validation and clear success or error messages.
+- Saved the user's display name and showed it on the home screen after login.
+
+### Sprint 2 - In Progress
+
+- Built the first version of the main screen.
+- Added the interface for scanning a meal and uploading a photo.
+- Added sections for the most recent meal and meal history.
+- The main screen features are still being connected to their final functionality.
