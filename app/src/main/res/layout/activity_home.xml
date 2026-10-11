@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FAFAF7">
+
+    <!-- Main Content -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:paddingTop="42dp">
+
+        <!-- Greeting -->
+        <TextView
+            android:id="@+id/greetingText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Good afternoon,"
+            android:textSize="21sp"
+            android:textColor="#222222" />
+
+        <!-- Name + Settings -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/userNameText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="User"
+                android:textSize="32sp"
+                android:textStyle="bold"
+                android:textColor="#111111" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="⚙"
+                android:textSize="25sp"
+                android:textColor="#222222"
+                android:padding="5dp" />
+
+        </LinearLayout>
+
+        <!-- Subtitle -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Small choices make a big difference&#10;for a healthier you."
+            android:textSize="15sp"
+            android:lineSpacingExtra="3dp"
+            android:textColor="#777777"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="34dp" />
+
+        <!-- Your Meals -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your meals"
+            android:textSize="23sp"
+            android:textStyle="bold"
+            android:textColor="#173B2B"
+            android:layout_marginBottom="14dp" />
+
+        <!-- Scan Card -->
+        <LinearLayout
+            android:id="@+id/scanMealButton"
+            android:layout_width="match_parent"
+            android:layout_height="112dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:padding="18dp"
+            android:background="#2F7655">
+
+            <TextView
+                android:layout_width="65dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="📷"
+                android:textSize="38sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Scan a meal"
+                    android:textColor="#FFFFFF"
+                    android:textSize="21sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Take a photo to analyse&#10;your food"
+                    android:textColor="#E7F0EB"
+                    android:textSize="14sp"
+                    android:layout_marginTop="3dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Upload -->
+        <TextView
+            android:id="@+id/uploadPhotoText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Upload photo"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="#2F7655"
+            android:layout_gravity="center_horizontal"
+            android:padding="12dp"
+            android:layout_marginTop="5dp" />
+
+        <!-- Divider -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#DDDDDD"
+            android:layout_marginTop="9dp"
+            android:layout_marginBottom="25dp" />
+
+        <!-- Recent Meal -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Recent meal"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#173B2B"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Recent Meal Card -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="105dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="12dp"
+            android:background="@android:drawable/edit_text">
+
+            <!-- Temporary meal image area -->
+            <TextView
+                android:layout_width="82dp"
+                android:layout_height="82dp"
+                android:gravity="center"
+                android:text="🍽️"
+                android:textSize="38sp"
+                android:background="#EFEFE9" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_marginLeft="14dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Lunch"
+                    android:textStyle="bold"
+                    android:textSize="17sp"
+                    android:textColor="#222222" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Grilled chicken, rice&#10;and vegetables"
+                    android:textSize="13sp"
+                    android:textColor="#555555"
+                    android:layout_marginTop="2dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Today, 1:15 PM"
+                    android:textSize="12sp"
+                    android:textColor="#888888"
+                    android:layout_marginTop="3dp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="›"
+                android:textSize="30sp"
+                android:textColor="#777777"
+                android:padding="5dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Divider above navigation -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#E4E4E0" />
+
+    <!-- Bottom Navigation -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="#FFFFFF">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="⌂&#10;Home"
+            android:textStyle="bold"
+            android:textSize="13sp"
+            android:textColor="#2F7655" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="◷&#10;History"
+            android:textSize="13sp"
+            android:textColor="#777777" />
+
+    </LinearLayout>
+
+</LinearLayout>

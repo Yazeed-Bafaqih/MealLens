@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="32dp"
+    android:gravity="center_horizontal"
+    android:background="#FAFAF7">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MealLens"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        android:textColor="#173B2B"
+        android:layout_marginTop="55dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Good food. A brighter you."
+        android:textSize="14sp"
+        android:textColor="#6F756F"
+        android:layout_marginBottom="40dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create account"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:textColor="#222222"
+        android:layout_marginBottom="8dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Join MealLens and start tracking your meals today."
+        android:textSize="14sp"
+        android:textColor="#777777"
+        android:layout_marginBottom="25dp" />
+
+    <EditText
+        android:id="@+id/nameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:hint="Full name"
+        android:inputType="textPersonName"
+        android:padding="14dp"
+        android:background="@android:drawable/edit_text"
+        android:layout_marginBottom="15dp" />
+
+    <EditText
+        android:id="@+id/registerEmailEditText"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:hint="Email address"
+        android:inputType="textEmailAddress"
+        android:padding="14dp"
+        android:background="@android:drawable/edit_text"
+        android:layout_marginBottom="15dp" />
+
+    <EditText
+        android:id="@+id/registerPasswordEditText"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:padding="14dp"
+        android:background="@android:drawable/edit_text"
+        android:layout_marginBottom="25dp" />
+
+    <Button
+        android:id="@+id/signupButton"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:text="Sign up"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        android:backgroundTint="#2F7655"
+        android:textColor="#FFFFFF" />
+
+    <TextView
+        android:id="@+id/loginText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Already have an account? Log in"
+        android:textSize="14sp"
+        android:textColor="#2F7655"
+        android:layout_marginTop="25dp"
+        android:padding="10dp" />
+
+</LinearLayout>
