@@ -1,0 +1,29 @@
+# Android Studio / IntelliJ
+*.iml
+.idea/
+
+# Gradle and build output
+.gradle/
+**/build/
+
+# Local machine configuration
+local.properties
+
+# Firebase configuration (download your own from Firebase Console)
+google-services.json
+
+# Native build output
+.externalNativeBuild/
+.cxx/
+
+# Signing credentials and packaged apps
+*.jks
+*.keystore
+keystore.properties
+*.apk
+*.aab
+
+# Logs and OS files
+*.log
+.DS_Store
+captures/
