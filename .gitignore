@@ -29,3 +29,12 @@ keystore.properties
 .DS_Store
 captures/
 .claude/
+
+# API keys and local environment files
+.env
+.env.*
+!.env.example
+
+# JavaScript dependencies and local Expo state
+node_modules/
+.expo/
