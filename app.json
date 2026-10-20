@@ -1,0 +1,49 @@
+{
+  "expo": {
+    "name": "MealLens",
+    "slug": "MealLens",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSCameraUsageDescription": "MealLens uses the camera to scan your meal.",
+        "NSPhotoLibraryUsageDescription": "MealLens needs your photos to analyse a meal."
+      },
+      "bundleIdentifier": "com.anonymous.MealLens"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#E6F4FE",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false,
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.READ_MEDIA_IMAGES",
+        "android.permission.RECORD_AUDIO"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "cameraPermission": "MealLens uses the camera to scan your meal.",
+          "photosPermission": "MealLens needs your photos to analyse a meal."
+        }
+      ]
+    ],
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "backgroundColor": "#F6F7F3",
+      "resizeMode": "contain"
+    }
+  }
+}

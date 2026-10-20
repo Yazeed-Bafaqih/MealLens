@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MealLens Sprint 2</title>
+<style>
+  @page { size: 1456px 819px; margin: 0; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #F7F8F3; }
+  body { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; color: #1C1F1D; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .slide { width: 1456px; height: 819px; position: relative; overflow: hidden; background: #F7F8F3; page-break-after: always; break-after: page; padding: 78px 92px; }
+  .slide:last-child { page-break-after: auto; break-after: auto; }
+  .green { color: #2F6B4F; }
+  .muted { color: #7A7F7B; }
+  .pg { position: absolute; right: 92px; bottom: 36px; font-size: 16px; color: #7A7F7B; }
+  h1 { font-size: 46px; font-weight: 700; margin: 0 0 14px; letter-spacing: -0.5px; }
+  .sub { font-size: 22px; color: #7A7F7B; margin: 0 0 54px; }
+  .sub.narrow { max-width: 540px; }
+  h3 { font-size: 30px; font-weight: 700; color: #2F6B4F; margin: 0 0 16px; }
+  p { font-size: 22px; line-height: 1.4; margin: 0; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; column-gap: 60px; row-gap: 70px; }
+  .steps { display: grid; grid-template-columns: repeat(5, 1fr); column-gap: 40px; margin-top: 30px; }
+  .steps .n { font-size: 50px; font-weight: 700; color: #2F6B4F; }
+  .steps .t { font-size: 24px; font-weight: 700; margin: 46px 0 28px; }
+  .steps p { font-size: 22px; color: #6F746F; }
+  table { width: 100%; border-collapse: collapse; font-size: 20px; }
+  thead th { background: #2F6B4F; color: #fff; text-align: left; padding: 14px 10px; font-weight: 700; }
+  tbody td { padding: 13px 10px; vertical-align: top; }
+  .pass { color: #2F6B4F; font-weight: 700; }
+  /* phone frames */
+  .phones { position: absolute; right: 92px; top: 150px; display: flex; gap: 26px; }
+  .phone { width: 262px; height: 567px; border: 1.5px solid #D5DAD3; }
+  .phones.three .phone { width: 232px; height: 502px; border-radius: 26px; overflow: hidden; border: 1px solid #DDE1DA; background: #fff;  }
+  .phone img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+  .cap { font-size: 15px; color: #7A7F7B; margin-top: 10px; text-align: center; }
+  .left { width: 560px; }
+  .left h3 { margin-top: 10px; }
+  .left p { margin-bottom: 26px; color: #4A4F4B; }
+  .kv { font-size: 20px; color: #4A4F4B; line-height: 1.5; }
+  .kv b { color: #1C1F1D; }
+  .flow { display: flex; align-items: stretch; gap: 16px; margin-top: 20px; }
+  .flow .box { background: #fff; border: 1px solid #DDE1DA; border-radius: 18px; padding: 28px 26px; width: 240px; }
+  .flow .box .h { font-size: 24px; font-weight: 700; color: #2F6B4F; margin-bottom: 12px; }
+  .flow .box .d { font-size: 19px; color: #4A4F4B; line-height: 1.4; }
+  .flow .arrow { font-size: 34px; color: #B6BBB5; align-self: center; }
+  .chip { display: inline-block; padding: 10px 18px; border-radius: 999px; font-size: 19px; font-weight: 700; margin: 0 10px 14px 0; }
+  .chip.d { background: #FBE6E3; color: #C2443A; }
+  .chip.w { background: #FBF0DF; color: #C8811A; }
+  .chip.i { background: #E4EDF7; color: #3A6EA5; }
+  .chip.o { background: #E3EFE8; color: #2F6B4F; }
+  .bigbox { background: #2F6B4F; color: #fff; border-radius: 28px; width: 400px; height: 380px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+  .bigbox .a { font-size: 28px; font-weight: 700; opacity: .85; }
+  .bigbox .b { font-size: 56px; font-weight: 700; margin: 26px 0; }
+  .bigbox .c { font-size: 22px; opacity: .9; }
+  .list { list-style: none; padding: 0; margin: 0; }
+  .list li { display: grid; grid-template-columns: 70px 1fr; column-gap: 20px; padding: 20px 0; border-bottom: 2px solid #E4E7E2; }
+  .list .n { font-size: 30px; font-weight: 700; color: #2F6B4F; }
+  .list .t { font-size: 24px; font-weight: 700; margin-bottom: 6px; }
+  .list .d { font-size: 20px; color: #6F746F; }
+</style>
+</head>
+<body>
+
+<!-- 1 Title -->
+<section class="slide">
+  <div class="muted" style="font-size:22px; margin-top:0;">Sprint 2 · Photo Input, Recognition and Confirmation</div>
+  <div class="green" style="font-size:118px; font-weight:700; margin-top:96px; letter-spacing:-2px;">MealLens</div>
+  <div style="font-size:40px; margin-top:26px;">A simple photo-based meal tracker</div>
+  <div style="position:absolute; left:92px; bottom:150px; font-size:24px; line-height:1.4;">Ahmed Bahaj<br>Albaraa Alnahari<br>Yazeed Bafaqeeh<br>Ibrahim AbuAlghaith</div>
+  <div class="muted" style="position:absolute; right:140px; bottom:150px; font-size:24px; line-height:1.4;">CCSW 431<br>Mobile Programming<br>University of Jeddah · 2026</div>
+</section>
+
+<!-- 2 Sprint 2 goal -->
+<section class="slide">
+  <h1>Sprint 2 goal</h1>
+  <p class="sub">Deliver the meal-logging stories planned for Sprint 2</p>
+  <div style="display:grid; grid-template-columns: 1fr 420px; column-gap: 80px;">
+    <div>
+      <div style="font-size:52px; font-weight:700; line-height:1.15;">From a photo to a<br>confirmed meal.</div>
+      <p class="muted" style="margin-top:56px; font-size:24px; line-height:1.45;">The user adds a photo, the app proposes the foods inside it, and the user corrects the items and portions before any estimate is shown.</p>
+    </div>
+    <div>
+      <div class="green" style="font-size:28px; font-weight:700; margin-bottom:28px;">Sprint scope</div>
+      <div class="kv"><b>003</b> &nbsp;Photo input</div>
+      <div class="kv"><b>004</b> &nbsp;Food recognition</div>
+      <div class="kv"><b>005</b> &nbsp;Food confirmation</div>
+      <div class="kv" style="margin-top:22px;"><b>Early start</b> &nbsp;006 Nutrition estimation</div>
+    </div>
+  </div>
+  <div class="pg">02</div>
+</section>
+
+<!-- 3 What we built -->
+<section class="slide">
+  <h1>What we built</h1>
+  <p class="sub">Three working screens, running on iOS, Android and the web</p>
+  <div class="grid2">
+    <div><h3>Home</h3><p>Greets the user, offers Scan a meal or Upload photo, and shows the most recent meal with a History tab.</p></div>
+    <div><h3>Confirm your meal</h3><p>Shows the detected dish with a confidence score. Every ingredient has an editable weight in grams and can be removed or added.</p></div>
+    <div><h3>Meal summary</h3><p>Total calories, a health score, protein / carbs / fat with percentages, sugar, fiber and sodium, and a per-ingredient breakdown.</p></div>
+    <div><h3>Health flags</h3><p>Clear warnings such as “Not suitable for diabetics”, high calories, high fat, sodium and allergens, plus positive notes like fiber and protein.</p></div>
+  </div>
+  <div class="pg">03</div>
+</section>
+
+<!-- 4 Journey -->
+<section class="slide">
+  <h1>The Sprint 2 journey</h1>
+  <p class="sub">Example: Ahmed logs a plate of masoub</p>
+  <div class="steps">
+    <div><div class="n">01</div><div class="t">Add a photo</div><p>Scan with the camera or upload from the gallery.</p></div>
+    <div><div class="n">02</div><div class="t">Recognise</div><p>The app proposes the dish and its ingredients.</p></div>
+    <div><div class="n">03</div><div class="t">Confirm</div><p>Adjust grams, remove or add ingredients.</p></div>
+    <div><div class="n">04</div><div class="t">Review</div><p>Read calories, macros and health flags.</p></div>
+    <div><div class="n">05</div><div class="t">Save</div><p>The meal appears in Recent meal and History.</p></div>
+  </div>
+  <div class="pg">04</div>
+</section>
+
+<!-- 5 Home -->
+<section class="slide">
+  <h1>Screen 1 · Home</h1>
+  <p class="sub narrow">The starting point for every meal</p>
+  <div class="left">
+    <h3>Two ways in</h3>
+    <p><b>Scan a meal</b> opens the camera. <b>Upload photo</b> opens the gallery. A demo meal link lets us test without a camera.</p>
+    <h3>Recent meal</h3>
+    <p>After saving, the latest meal appears with its ingredients, calories and time. Tapping it reopens the summary.</p>
+    <h3>History</h3>
+    <p>The History tab lists every saved meal of the session.</p>
+  </div>
+  <div class="phones">
+    <div><div class="phone"><img src="img/home.png"></div><div class="cap">Before the first meal</div></div>
+    <div><div class="phone"><img src="img/home-saved.png"></div><div class="cap">After saving a meal</div></div>
+  </div>
+  <div class="pg">05</div>
+</section>
+
+<!-- 6 Confirm -->
+<section class="slide">
+  <h1>Screen 2 · Confirm your meal</h1>
+  <p class="sub narrow">The user stays in control of what was detected</p>
+  <div class="left">
+    <h3>Detected dish</h3>
+    <p>The photo is analysed and labelled <b>Masoub · معصوب</b> with a 91% match. Six ingredients are proposed with default portions.</p>
+    <h3>Edit items and portions</h3>
+    <p>Each ingredient has − / + steppers and a gram field. Items can be removed with ✕ or added from the <b>Add missing ingredient</b> panel.</p>
+    <h3>Live total</h3>
+    <p>The calorie total updates instantly as portions change, before the user taps <b>Estimate nutrition</b>.</p>
+  </div>
+  <div class="phones">
+    <div><div class="phone"><img src="img/confirm.png"></div><div class="cap">Detected ingredients</div></div>
+    <div><div class="phone"><img src="img/confirm-edit.png"></div><div class="cap">Editing and adding items</div></div>
+  </div>
+  <div class="pg">06</div>
+</section>
+
+<!-- 7 Summary -->
+<section class="slide">
+  <h1>Screen 3 · Meal summary</h1>
+  <p class="sub narrow">Calories, macros, health flags and a per-ingredient breakdown</p>
+  <div class="left" style="width:380px;">
+    <h3>Estimate</h3>
+    <p>Total kcal, a health score out of 100, and a macro bar for protein, carbs and fat with sugar, fiber and sodium.</p>
+    <h3>Health flags</h3>
+    <p>Rule-based flags warn about diabetes risk, calories, fat, sodium and allergens, and highlight positives.</p>
+    <h3>Breakdown</h3>
+    <p>Every ingredient with its grams, macros and calories, sorted by impact. <b>Save meal</b> stores it.</p>
+  </div>
+  <div class="phones three" style="gap:22px; top:190px; right:80px;">
+    <div><div class="phone"><img src="img/summary.png"></div><div class="cap">Totals and macros</div></div>
+    <div><div class="phone"><img src="img/summary-flags.png"></div><div class="cap">Health flags</div></div>
+    <div><div class="phone"><img src="img/summary-breakdown.png"></div><div class="cap">Ingredient breakdown</div></div>
+  </div>
+  <div class="pg">07</div>
+</section>
+
+<!-- 8 How the estimate works -->
+<section class="slide">
+  <h1>How the estimate works</h1>
+  <p class="sub">Recognition is mocked for now; everything after it is real and reusable</p>
+  <div class="flow">
+    <div class="box"><div class="h">1 · Photo</div><div class="d">Camera, gallery or demo image.</div></div>
+    <div class="arrow">›</div>
+    <div class="box"><div class="h">2 · Recognition</div><div class="d">Returns a dish name, confidence and an ingredient list with default grams. Currently a mock that returns masoub.</div></div>
+    <div class="arrow">›</div>
+    <div class="box"><div class="h">3 · Confirmation</div><div class="d">The user edits grams, removes or adds ingredients.</div></div>
+    <div class="arrow">›</div>
+    <div class="box"><div class="h">4 · Nutrition table</div><div class="d">Per-100 g values (kcal, protein, carbs, fat, fiber, sugar, sodium) scaled by the confirmed grams and summed.</div></div>
+    <div class="arrow">›</div>
+    <div class="box"><div class="h">5 · Flags &amp; score</div><div class="d">Simple rules on the totals and ingredient tags.</div></div>
+  </div>
+  <div style="margin-top:70px;">
+    <div class="green" style="font-size:26px; font-weight:700; margin-bottom:16px;">Flag rules used in the demo</div>
+    <span class="chip d">Sugar ≥ 25 g or fast carbs → Not suitable for diabetics</span>
+    <span class="chip w">≥ 600 kcal → High calorie meal</span>
+    <span class="chip w">Fat ≥ 25 g → High in fat</span><br>
+    <span class="chip i">Sodium ≥ 600 mg → Moderate sodium</span>
+    <span class="chip i">Gluten / dairy / nuts → Contains allergens</span>
+    <span class="chip o">Fiber ≥ 5 g, protein ≥ 15 g → Positive notes</span>
+  </div>
+  <div class="pg">08</div>
+</section>
+
+<!-- 9 Technical -->
+<section class="slide">
+  <h1>Sprint 2 implementation</h1>
+  <p class="sub">A cross-platform prototype so the whole team can run it on any device</p>
+  <div class="grid2">
+    <div><h3>Expo · React Native + TypeScript</h3><p>One codebase runs on the iOS Simulator, Android, a real phone through Expo Go, and in the browser.</p></div>
+    <div><h3>Photo input</h3><p>expo-image-picker handles camera and gallery with the required permissions declared in app.json.</p></div>
+    <div><h3>Recognition and nutrition</h3><p>A single <b>analyseImage()</b> function returns the detected meal. Nutrition values live in a per-100 g table and are scaled by the confirmed grams.</p></div>
+    <div><h3>Screens and state</h3><p>Home, Confirm and Summary screens with a lightweight navigator. Saved meals are kept in app state for this sprint.</p></div>
+  </div>
+  <div class="pg">09</div>
+</section>
+
+<!-- 10 Tests -->
+<section class="slide">
+  <h1>Sprint 2 test cases</h1>
+  <p class="sub">Run manually on the web build and the iOS Simulator</p>
+  <table>
+    <thead><tr><th style="width:170px;">Area</th><th>Test case</th><th>Expected result</th><th style="width:130px;">Outcome</th></tr></thead>
+    <tbody>
+      <tr><td>Photo input</td><td>Open the demo meal</td><td>Confirm screen opens with the photo and “Analysing…” state</td><td class="pass">Pass</td></tr>
+      <tr><td>Recognition</td><td>Wait for analysis</td><td>Masoub detected with 91% match and 6 ingredients</td><td class="pass">Pass</td></tr>
+      <tr><td>Confirmation</td><td>Tap + on Tamees bread</td><td>Grams increase and live total rises</td><td class="pass">Pass</td></tr>
+      <tr><td>Confirmation</td><td>Remove Honey</td><td>Row disappears, total drops from 746 to 699 kcal</td><td class="pass">Pass</td></tr>
+      <tr><td>Confirmation</td><td>Add Honey back</td><td>Row returns, total becomes 760 kcal</td><td class="pass">Pass</td></tr>
+      <tr><td>Nutrition</td><td>Tap Estimate nutrition</td><td>Summary shows kcal, macros, score and breakdown</td><td class="pass">Pass</td></tr>
+      <tr><td>Flags</td><td>View health flags</td><td>Diabetes, calorie, fat, sodium, allergen and positive flags shown</td><td class="pass">Pass</td></tr>
+      <tr><td>Save</td><td>Tap Save meal</td><td>Home shows the meal under Recent meal and in History</td><td class="pass">Pass</td></tr>
+    </tbody>
+  </table>
+  <div class="green" style="font-size:22px; font-weight:700; margin-top:28px;">All documented Sprint 2 test cases passed.</div>
+  <div class="pg">10</div>
+</section>
+
+<!-- 11 Results -->
+<section class="slide">
+  <h1>Sprint 2 results</h1>
+  <p class="sub">Stories 003–005 delivered, with an early start on 006</p>
+  <div style="display:grid; grid-template-columns: 1fr 400px; column-gap: 100px; align-items:start;">
+    <ul class="list">
+      <li><div class="n">01</div><div><div class="t">Photo input</div><div class="d">Camera, gallery and demo image reach the confirm screen.</div></div></li>
+      <li><div class="n">02</div><div><div class="t">Food recognition</div><div class="d">Dish, confidence and ingredients are proposed from the photo.</div></div></li>
+      <li><div class="n">03</div><div><div class="t">Food confirmation</div><div class="d">Grams, removals and additions update the estimate live.</div></div></li>
+      <li><div class="n">04</div><div><div class="t">Nutrition and flags</div><div class="d">Calories, macros, health score and flags, saved to history.</div></div></li>
+    </ul>
+    <div class="bigbox"><div class="a">Sprint 2</div><div class="b">COMPLETE</div><div class="c">Photo, recognition and<br>confirmation scope</div></div>
+  </div>
+  <div class="pg">11</div>
+</section>
+
+<!-- 12 Future work -->
+<section class="slide">
+  <h1>Future work</h1>
+  <p class="sub">Replace the mock with a real AI model and complete the remaining stories</p>
+  <div class="grid2">
+    <div><h3>Real AI food recognition</h3><p>Connect a vision model so the prediction comes from the photo itself: the dish, its ingredients, and an estimated portion size for each one.</p></div>
+    <div><h3>Nutrition database</h3><p>Look up confirmed foods in a nutrition API instead of the built-in table, so any dish can be estimated.</p></div>
+    <div><h3>Cloud history (007–008)</h3><p>Store saved meals per account in Firebase so history follows the user across devices.</p></div>
+    <div><h3>Personal flags</h3><p>Let the user set conditions such as diabetes or allergies so the flags are tailored to them, with Arabic language support.</p></div>
+  </div>
+  <div class="pg">12</div>
+</section>
+
+<!-- 13 Thank you -->
+<section class="slide" style="display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;">
+  <div class="green" style="font-size:44px; font-weight:700; position:absolute; top:150px;">MealLens</div>
+  <div style="font-size:72px; font-weight:700;">Thank You</div>
+  <div class="muted" style="font-size:30px; margin-top:16px;">Questions?</div>
+  <div style="margin-top:70px; background:#2F6B4F; color:#fff; font-size:24px; font-weight:700; padding:22px 80px; border-radius:999px;">Sprint 2</div>
+</section>
+
+</body>
+</html>
