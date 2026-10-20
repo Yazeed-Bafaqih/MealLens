@@ -1,45 +1,31 @@
-# --- Expo / React Native app (repository root) ---
-node_modules/
-.expo/
-dist/
-web-build/
-expo-env.d.ts
-.metro-health-check*
-npm-debug.*
-yarn-debug.*
-yarn-error.*
-*.tsbuildinfo
-.env
-.env*.local
-/ios
-/android
-.kotlin/
-*.orig.*
-*.p8
-*.p12
-*.key
-*.mobileprovision
-*.pem
-
-# --- Native Android prototype (android-native/) ---
+# Android Studio / IntelliJ
 *.iml
 .idea/
+
+# Gradle and build output
 .gradle/
 **/build/
+.kotlin/
+
+# Local machine configuration
 local.properties
+
+# Firebase configuration (download your own from Firebase Console)
 google-services.json
+
+# Native build output
 .externalNativeBuild/
 .cxx/
+
+# Signing credentials and packaged apps
 *.jks
 *.keystore
 keystore.properties
 *.apk
 *.aab
-captures/
 
-# --- OS / logs ---
+# Logs, OS and tool files
 *.log
 .DS_Store
-
-# Claude Code local settings
+captures/
 .claude/

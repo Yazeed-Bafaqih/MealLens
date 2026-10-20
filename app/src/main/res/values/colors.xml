@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="bg">#F6F7F3</color>
+    <color name="card">#FFFFFF</color>
+    <color name="primary">#2F6B4F</color>
+    <color name="primaryDark">#255640</color>
+    <color name="primarySoft">#E3EFE8</color>
+    <color name="text">#171B19</color>
+    <color name="muted">#6B716E</color>
+    <color name="border">#E4E7E2</color>
+    <color name="warn">#C8811A</color>
+    <color name="warnSoft">#FBF0DF</color>
+    <color name="danger">#C2443A</color>
+    <color name="dangerSoft">#FBE6E3</color>
+    <color name="ok">#2F6B4F</color>
+    <color name="okSoft">#E3EFE8</color>
+    <color name="info">#3A6EA5</color>
+    <color name="infoSoft">#E4EDF7</color>
+    <color name="scanIcon">#26FFFFFF</color>
+</resources>
