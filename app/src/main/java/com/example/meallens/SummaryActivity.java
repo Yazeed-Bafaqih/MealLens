@@ -24,8 +24,10 @@ import com.example.meallens.data.SavedMeal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 /** Summary: calories, health score, macros, health flags and per-ingredient breakdown. */
 public class SummaryActivity extends AppCompatActivity {
@@ -88,7 +90,24 @@ public class SummaryActivity extends AppCompatActivity {
 
         ((TextView) findViewById(R.id.kcalText)).setText(String.valueOf(Math.round(t.kcal)));
         ((TextView) findViewById(R.id.estimatedText)).setText(String.format(Locale.US,
-                "Estimated for %s · %d g total", analysis.title, analysis.totalGrams()));
+                "Estimated for %s · %d g total · %d%% match",
+                analysis.title, analysis.totalGrams(), Math.round(analysis.confidence * 100)));
+
+        TextView captionView = findViewById(R.id.captionText);
+        if (analysis.caption == null || analysis.caption.trim().isEmpty()) {
+            captionView.setVisibility(View.GONE);
+        } else {
+            captionView.setVisibility(View.VISIBLE);
+            captionView.setText("“" + analysis.caption.trim() + "”");
+        }
+
+        TextView summaryView = findViewById(R.id.summaryText);
+        if (analysis.summary == null || analysis.summary.trim().isEmpty()) {
+            summaryView.setVisibility(View.GONE);
+        } else {
+            summaryView.setVisibility(View.VISIBLE);
+            summaryView.setText(analysis.summary.trim());
+        }
 
         // Score ring
         int tone = score >= 70 ? R.color.ok : score >= 45 ? R.color.warn : R.color.danger;
@@ -98,7 +117,7 @@ public class SummaryActivity extends AppCompatActivity {
         GradientDrawable ring = (GradientDrawable) findViewById(R.id.scoreRing).getBackground().mutate();
         ring.setStroke(dp(5), getColor(tone));
         ((TextView) findViewById(R.id.scoreSub)).setText(score >= 70 ? "Balanced meal."
-                : score >= 45 ? "Enjoy occasionally. High in sugar and fat."
+                : score >= 45 ? "Enjoy occasionally. Watch the portion."
                 : "Treat meal. Best kept small and infrequent.");
 
         // Macro bar + rows
@@ -117,7 +136,15 @@ public class SummaryActivity extends AppCompatActivity {
         LinearLayout flags = findViewById(R.id.flagsContainer);
         flags.removeAllViews();
         LayoutInflater inf = LayoutInflater.from(this);
-        for (Flag f : Analyzer.buildFlags(items)) {
+        List<Flag> allFlags = new ArrayList<>(Analyzer.buildFlags(items));
+        Set<String> seenTitles = new HashSet<>();
+        for (Flag f : allFlags) seenTitles.add(f.title.toLowerCase(Locale.US));
+        if (analysis.aiFlags != null) {
+            for (Flag f : analysis.aiFlags) {
+                if (seenTitles.add(f.title.toLowerCase(Locale.US))) allFlags.add(f);
+            }
+        }
+        for (Flag f : allFlags) {
             View v = inf.inflate(R.layout.item_flag, flags, false);
             int bg, fg;
             String icon;

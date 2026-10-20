@@ -63,6 +63,31 @@
                 android:gravity="center"
                 android:textColor="@color/muted" />
 
+            <TextView
+                android:id="@+id/captionText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="3"
+                android:textColor="@color/muted"
+                android:textSize="13sp"
+                android:textStyle="italic"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/summaryText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:background="@drawable/bg_card"
+                android:lineSpacingExtra="4dp"
+                android:padding="16dp"
+                android:textColor="@color/text"
+                android:textSize="14sp"
+                android:visibility="gone" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -231,7 +256,7 @@
                 android:layout_marginTop="24dp"
                 android:gravity="center"
                 android:lineSpacingExtra="4dp"
-                android:text="Estimates based on typical portions. Check foods and portions for a better estimate."
+                android:text="Estimated by DeepSeek from your photo and caption. Portions are approximate — check foods and amounts before relying on the numbers."
                 android:textColor="@color/muted"
                 android:textSize="12sp" />
         </LinearLayout>

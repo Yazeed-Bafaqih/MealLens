@@ -8,17 +8,16 @@ import java.util.Locale;
 import java.util.Set;
 
 /**
- * Meal analysis logic. {@link #analyseImage} is a mock vision model that always
- * recognises the demo meal (masoub); everything after it works on the confirmed
- * ingredient list and is reusable once a real model is connected.
+ * Nutrition analysis logic. Everything here works on the confirmed ingredient
+ * list returned by DeepSeek (or added manually by the user).
  */
 public final class Analyzer {
-    /** Simulated network / inference delay in milliseconds. */
-    public static final long MOCK_DELAY_MS = 1400;
-
     private Analyzer() {}
 
-    /** Mock recogniser: returns the demo meal regardless of the photo. */
+    /**
+     * Local fixture for the instrumented regression tests. It is no longer used
+     * by the normal UI; real recognition lives in {@code MealRecognizer}.
+     */
     public static MealAnalysis analyseImage(String imageUri) {
         List<DetectedItem> items = Arrays.asList(
                 DetectedItem.ofDefault("tamees"),
@@ -43,10 +42,14 @@ public final class Analyzer {
         List<Flag> flags = new ArrayList<>();
 
         if (t.sugar >= 25 || tags.contains(Ingredient.TAG_HIGH_GI)) {
-            flags.add(new Flag(Flag.Level.DANGER, "Not suitable for diabetics",
-                    String.format(Locale.US,
-                            "About %d g of sugar plus fast carbs (bread, honey, corn flakes) may spike blood glucose.",
-                            Math.round(t.sugar))));
+            String fastCarbs = namesWithTag(items, Ingredient.TAG_HIGH_GI);
+            String detail = fastCarbs.isEmpty()
+                    ? String.format(Locale.US, "About %d g of sugar may spike blood glucose.",
+                            Math.round(t.sugar))
+                    : String.format(Locale.US,
+                            "About %d g of sugar plus fast carbs from %s may spike blood glucose.",
+                            Math.round(t.sugar), fastCarbs);
+            flags.add(new Flag(Flag.Level.DANGER, "Not suitable for diabetics", detail));
         }
         if (t.kcal >= 600) {
             flags.add(new Flag(Flag.Level.WARN, "High calorie meal",
@@ -54,12 +57,17 @@ public final class Analyzer {
                             Math.round(t.kcal / 2000 * 100))));
         }
         if (t.fat >= 25) {
-            flags.add(new Flag(Flag.Level.WARN, "High in fat",
-                    "Cream and nuts contribute most of the fat. Reduce the cream to cut it."));
+            String topFat = topBy(items, n -> n.fat);
+            String detail = topFat.isEmpty()
+                    ? "This meal is high in fat. Reduce the fattiest ingredients to cut it."
+                    : String.format(Locale.US,
+                            "About %d g of fat. %s contributes most; reducing it will cut the total.",
+                            Math.round(t.fat), topFat);
+            flags.add(new Flag(Flag.Level.WARN, "High in fat", detail));
         }
         if (t.sodium >= 600) {
             flags.add(new Flag(Flag.Level.INFO, "Moderate sodium",
-                    String.format(Locale.US, "About %d mg sodium, mostly from bread and corn flakes.",
+                    String.format(Locale.US, "About %d mg of sodium in this serving.",
                             Math.round(t.sodium))));
         }
         List<String> allergens = new ArrayList<>();
@@ -71,14 +79,43 @@ public final class Analyzer {
                     "Contains " + String.join(", ", allergens) + "."));
         }
         if (t.fiber >= 5) {
-            flags.add(new Flag(Flag.Level.OK, "Good source of fiber",
-                    String.format(Locale.US, "%d g of fiber from banana and bread.", Math.round(t.fiber))));
+            String topFiber = topBy(items, n -> n.fiber);
+            String detail = topFiber.isEmpty()
+                    ? String.format(Locale.US, "About %d g of fiber.", Math.round(t.fiber))
+                    : String.format(Locale.US, "About %d g of fiber, mostly from %s.",
+                            Math.round(t.fiber), topFiber);
+            flags.add(new Flag(Flag.Level.OK, "Good source of fiber", detail));
         }
         if (t.protein >= 15) {
             flags.add(new Flag(Flag.Level.OK, "Decent protein",
-                    String.format(Locale.US, "%d g of protein.", Math.round(t.protein))));
+                    String.format(Locale.US, "About %d g of protein.", Math.round(t.protein))));
         }
         return flags;
+    }
+
+    private static String namesWithTag(List<DetectedItem> items, String tag) {
+        StringBuilder sb = new StringBuilder();
+        for (DetectedItem item : items) {
+            if (!item.ingredient().hasTag(tag)) continue;
+            if (sb.length() > 0) sb.append(", ");
+            sb.append(item.ingredient().name);
+        }
+        return sb.toString();
+    }
+
+    /** Name of the ingredient contributing the most of a nutrient, or "" when empty. */
+    private static String topBy(List<DetectedItem> items,
+                                java.util.function.ToDoubleFunction<Nutrition> value) {
+        DetectedItem best = null;
+        double bestValue = 0;
+        for (DetectedItem item : items) {
+            double contribution = value.applyAsDouble(item.nutrition());
+            if (contribution > bestValue) {
+                bestValue = contribution;
+                best = item;
+            }
+        }
+        return best == null ? "" : best.ingredient().name;
     }
 
     /** Simple 5–95 score: penalises sugar, calories and fat; rewards fiber and protein. */

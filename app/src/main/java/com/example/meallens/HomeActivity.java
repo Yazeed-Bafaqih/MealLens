@@ -1,10 +1,12 @@
 package com.example.meallens;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -15,30 +17,31 @@ import androidx.activity.result.PickVisualMediaRequest;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.FileProvider;
 
 import com.example.meallens.auth.AuthService;
 import com.example.meallens.data.DetectedItem;
 import com.example.meallens.data.MealStore;
 import com.example.meallens.data.SavedMeal;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-/** Home: greeting, scan / upload / demo entry points, recent meal and history tab. */
+/** Home: upload a photo + optional caption, recent meal and history. */
 public class HomeActivity extends AppCompatActivity {
 
     private LinearLayout homeContent;
     private LinearLayout historyContent;
     private LinearLayout recentContainer;
     private LinearLayout historyContainer;
+    private ImageView imagePreview;
+    private TextView uploadTitle;
+    private TextView uploadHint;
+    private EditText captionInput;
+    private Button analyzeButton;
+    private String selectedImage;
     private String userName = "User";
-    private Uri pendingPhotoUri;
 
-    private ActivityResultLauncher<Uri> takePicture;
     private ActivityResultLauncher<PickVisualMediaRequest> pickImage;
 
     @Override
@@ -46,6 +49,10 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         EdgeToEdge.apply(this);
+
+        if (savedInstanceState != null) {
+            selectedImage = savedInstanceState.getString("selectedImage");
+        }
 
         AuthService.User user = AuthService.currentUser(this);
         if (user == null) {
@@ -61,49 +68,71 @@ public class HomeActivity extends AppCompatActivity {
         historyContent = findViewById(R.id.historyContent);
         recentContainer = findViewById(R.id.recentContainer);
         historyContainer = findViewById(R.id.historyContainer);
+        imagePreview = findViewById(R.id.imagePreview);
+        uploadTitle = findViewById(R.id.uploadTitle);
+        uploadHint = findViewById(R.id.uploadHint);
+        captionInput = findViewById(R.id.captionInput);
+        analyzeButton = findViewById(R.id.analyzeButton);
 
-        takePicture = registerForActivityResult(new ActivityResultContracts.TakePicture(), ok -> {
-            if (ok && pendingPhotoUri != null) openConfirm(pendingPhotoUri.toString());
-        });
         pickImage = registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), uri -> {
-            if (uri != null) openConfirm(uri.toString());
+            if (uri == null) return;
+            selectedImage = uri.toString();
+            showPreview();
         });
 
-        findViewById(R.id.scanCard).setOnClickListener(v -> scan());
-        findViewById(R.id.uploadLink).setOnClickListener(v -> pickImage.launch(
+        findViewById(R.id.uploadCard).setOnClickListener(v -> pickImage.launch(
                 new PickVisualMediaRequest.Builder()
                         .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE)
                         .build()));
-        findViewById(R.id.demoLink).setOnClickListener(v -> openConfirm(ImageUtil.DEMO));
+        analyzeButton.setOnClickListener(v -> {
+            if (selectedImage == null) {
+                Toast.makeText(this, "Choose a meal photo first", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            captionInput.clearFocus();
+            InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            if (imm != null) {
+                imm.hideSoftInputFromWindow(captionInput.getWindowToken(), 0);
+            }
+            openConfirm(selectedImage, captionInput.getText().toString().trim());
+        });
         findViewById(R.id.settingsButton).setOnClickListener(v -> confirmLogout());
         findViewById(R.id.tabHome).setOnClickListener(v -> showTab(true));
         findViewById(R.id.tabHistory).setOnClickListener(v -> showTab(false));
+
+        if (selectedImage != null) showPreview();
+        analyzeButton.setEnabled(selectedImage != null);
+        analyzeButton.setAlpha(selectedImage != null ? 1f : 0.55f);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        renderMeals();
+        if (recentContainer != null) renderMeals();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        if (selectedImage != null) outState.putString("selectedImage", selectedImage);
+        super.onSaveInstanceState(outState);
     }
 
     // ----------------------------------------------------------------- actions
 
-    private void scan() {
-        try {
-            File dir = new File(getCacheDir(), "photos");
-            if (!dir.exists() && !dir.mkdirs()) throw new IOException("cache dir");
-            File photo = File.createTempFile("meal_", ".jpg", dir);
-            pendingPhotoUri = FileProvider.getUriForFile(this, getPackageName() + ".fileprovider", photo);
-            takePicture.launch(pendingPhotoUri);
-        } catch (IOException | IllegalArgumentException | android.content.ActivityNotFoundException e) {
-            Toast.makeText(this, "Camera not available, opening demo meal", Toast.LENGTH_SHORT).show();
-            openConfirm(ImageUtil.DEMO);
-        }
+    private void showPreview() {
+        if (selectedImage == null) return;
+        imagePreview.setVisibility(View.VISIBLE);
+        ImageUtil.load(imagePreview, selectedImage);
+        uploadTitle.setText("Change photo");
+        uploadHint.setText("Tap to choose a different picture");
+        analyzeButton.setEnabled(true);
+        analyzeButton.setAlpha(1f);
     }
 
-    private void openConfirm(String image) {
+    private void openConfirm(String image, String caption) {
         Intent i = new Intent(this, ConfirmActivity.class);
         i.putExtra(ConfirmActivity.EXTRA_IMAGE, image);
+        i.putExtra(ConfirmActivity.EXTRA_CAPTION, caption);
         startActivity(i);
     }
 
@@ -149,7 +178,7 @@ public class HomeActivity extends AppCompatActivity {
         recentContainer.removeAllViews();
         if (meals.isEmpty()) {
             recentContainer.addView(emptyView(inf, recentContainer,
-                    "No meals yet. Scan your first meal to see calories, macros and health flags."));
+                    "No meals yet. Upload a photo to see calories, macros and health flags."));
         } else {
             recentContainer.addView(mealRow(inf, recentContainer, meals.get(0)));
         }

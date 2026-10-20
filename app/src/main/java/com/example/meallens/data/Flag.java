@@ -1,7 +1,11 @@
 package com.example.meallens.data;
 
+import java.io.Serializable;
+
 /** A health note shown on the summary screen. */
-public class Flag {
+public class Flag implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     public enum Level { DANGER, WARN, OK, INFO }
 
     public final Level level;

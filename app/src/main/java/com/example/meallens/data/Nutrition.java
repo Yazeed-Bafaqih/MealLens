@@ -1,7 +1,11 @@
 package com.example.meallens.data;
 
+import java.io.Serializable;
+
 /** Nutrition totals. Values are grams except kcal and sodium (mg). */
-public class Nutrition {
+public class Nutrition implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     public double kcal;
     public double protein;
     public double carbs;

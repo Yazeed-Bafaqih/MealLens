@@ -75,88 +75,126 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="32dp"
                     android:layout_marginBottom="16dp"
-                    android:text="Your meals"
+                    android:text="Analyze a meal"
                     android:textColor="@color/text"
                     android:textSize="21sp"
                     android:textStyle="bold" />
 
                 <LinearLayout
-                    android:id="@+id/scanCard"
+                    android:id="@+id/uploadCard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/bg_scan"
+                    android:background="@drawable/bg_card"
                     android:clickable="true"
                     android:focusable="true"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:padding="24dp">
+                    android:padding="18dp">
 
                     <TextView
-                        android:layout_width="64dp"
-                        android:layout_height="64dp"
-                        android:background="@drawable/bg_scan_icon"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:background="@drawable/bg_icon_soft"
                         android:gravity="center"
-                        android:text="📷"
-                        android:textSize="30sp" />
+                        android:text="🖼️"
+                        android:textSize="26sp" />
 
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
+                        android:layout_marginStart="14dp"
                         android:layout_weight="1"
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/uploadTitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Scan a meal"
-                            android:textColor="@color/white"
-                            android:textSize="22sp"
+                            android:text="Upload a meal photo"
+                            android:textColor="@color/text"
+                            android:textSize="18sp"
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/uploadHint"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
-                            android:text="Take a photo to analyse your food"
-                            android:textColor="#D9FFFFFF"
-                            android:textSize="14sp" />
+                            android:text="Choose one photo from your gallery"
+                            android:textColor="@color/muted"
+                            android:textSize="13sp" />
                     </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="›"
+                        android:textColor="@color/muted"
+                        android:textSize="26sp" />
                 </LinearLayout>
 
-                <LinearLayout
+                <ImageView
+                    android:id="@+id/imagePreview"
+                    android:layout_width="match_parent"
+                    android:layout_height="220dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/bg_image"
+                    android:clipToOutline="true"
+                    android:contentDescription="Selected meal photo"
+                    android:scaleType="centerCrop"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Add a caption"
+                    android:textColor="@color/text"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:gravity="center"
-                    android:orientation="horizontal">
+                    android:layout_marginTop="2dp"
+                    android:text="Help the model by naming the dish, portion or ingredients."
+                    android:textColor="@color/muted"
+                    android:textSize="13sp" />
 
-                    <TextView
-                        android:id="@+id/uploadLink"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="6dp"
-                        android:text="Upload photo"
-                        android:textColor="@color/primary"
-                        android:textSize="15sp"
-                        android:textStyle="bold" />
+                <EditText
+                    android:id="@+id/captionInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_input"
+                    android:gravity="top|start"
+                    android:hint="Optional — e.g. chicken shawarma wrap, small portion, no fries"
+                    android:importantForAutofill="no"
+                    android:inputType="textCapSentences|textMultiLine"
+                    android:maxLength="300"
+                    android:maxLines="4"
+                    android:minLines="2"
+                    android:padding="14dp"
+                    android:textColor="@color/text"
+                    android:textColorHint="@color/muted"
+                    android:textSize="15sp" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="·"
-                        android:textColor="@color/muted" />
+                <Button
+                    android:id="@+id/analyzeButton"
+                    style="@style/PrimaryButton"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="12dp"
+                    android:enabled="false"
+                    android:text="Analyze meal" />
 
-                    <TextView
-                        android:id="@+id/demoLink"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="6dp"
-                        android:text="Try demo meal"
-                        android:textColor="@color/primary"
-                        android:textSize="15sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:lineSpacingExtra="3dp"
+                    android:text="DeepSeek estimates the ingredients and portions. Review them before saving."
+                    android:textColor="@color/muted"
+                    android:textSize="12sp" />
 
                 <View
                     android:layout_width="match_parent"
